@@ -1,20 +1,20 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>Camera</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content class="ion-padding" style="text-align: center">
+  <div *ngIf="isWeb">
+    <video #videoElement autoplay playsinline width="100%"></video>
   </div>
+
+  <div *ngIf="!isWeb">
+    <ion-button expand="block" (click)="takePhoto()">Take & Upload Photo</ion-button>
+  </div>
+
+  <ion-button expand="block" (click)="takePhoto()">Take & Upload Photo</ion-button>
 </ion-content>
