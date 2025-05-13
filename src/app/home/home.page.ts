@@ -30,16 +30,26 @@ export class HomePage {
     this.stopWebCamera();
   }
 
-  async startWebCamera() {
+async startWebCamera() {
+  try {
+    this.stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { exact: 'environment' } }
+    });
+    this.videoElement.nativeElement.srcObject = this.stream;
+    this.videoElement.nativeElement.play();
+  } catch (err) {
+    console.error('Error accessing rear camera:', err);
+    alert('Rear camera not found. Using default.');
     try {
       this.stream = await navigator.mediaDevices.getUserMedia({ video: true });
       this.videoElement.nativeElement.srcObject = this.stream;
       this.videoElement.nativeElement.play();
-    } catch (err) {
-      alert('Error accessing webcam.');
+    } catch (fallbackErr) {
+      alert('No camera found.');
       this.closeModal();
     }
   }
+}
 
   stopWebCamera() {
     if (this.stream) {
